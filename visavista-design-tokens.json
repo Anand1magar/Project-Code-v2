@@ -1,0 +1,293 @@
+{
+  "$metadata": {
+    "tokenSetOrder": ["global", "light", "dark"]
+  },
+
+  "global": {
+
+    "font-family": {
+      "sans": {
+        "value": "IBM Plex Sans",
+        "type": "fontFamilies",
+        "description": "Primary typeface — fallbacks: Helvetica Neue, Arial, sans-serif"
+      }
+    },
+
+    "font-weight": {
+      "light":    { "value": "300", "type": "fontWeights" },
+      "regular":  { "value": "400", "type": "fontWeights" },
+      "semibold": { "value": "600", "type": "fontWeights" }
+    },
+
+    "font-size": {
+      "display-xl": { "value": "76",  "type": "fontSizes" },
+      "display-lg": { "value": "60",  "type": "fontSizes" },
+      "display-md": { "value": "42",  "type": "fontSizes" },
+      "headline":   { "value": "32",  "type": "fontSizes" },
+      "card-title": { "value": "24",  "type": "fontSizes" },
+      "subhead":    { "value": "20",  "type": "fontSizes" },
+      "body-lg":    { "value": "18",  "type": "fontSizes" },
+      "body":       { "value": "16",  "type": "fontSizes" },
+      "body-sm":    { "value": "14",  "type": "fontSizes" },
+      "caption":    { "value": "12",  "type": "fontSizes" }
+    },
+
+    "line-height": {
+      "tight":    { "value": "1.17", "type": "lineHeights" },
+      "snug":     { "value": "1.25", "type": "lineHeights" },
+      "normal":   { "value": "1.33", "type": "lineHeights" },
+      "relaxed":  { "value": "1.40", "type": "lineHeights" },
+      "loose":    { "value": "1.50", "type": "lineHeights" },
+      "compact":  { "value": "1.29", "type": "lineHeights" }
+    },
+
+    "letter-spacing": {
+      "tight":   { "value": "-0.5px", "type": "letterSpacing" },
+      "snug":    { "value": "-0.4px", "type": "letterSpacing" },
+      "normal":  { "value": "0",      "type": "letterSpacing" },
+      "carbon":  { "value": "0.16px", "type": "letterSpacing", "description": "IBM Carbon body tracking" },
+      "caption": { "value": "0.32px", "type": "letterSpacing" }
+    },
+
+    "typography": {
+      "display-xl": {
+        "value": {
+          "fontFamily": "{global.font-family.sans}",
+          "fontWeight": "{global.font-weight.light}",
+          "fontSize":   "{global.font-size.display-xl}",
+          "lineHeight": "{global.line-height.tight}",
+          "letterSpacing": "{global.letter-spacing.tight}"
+        },
+        "type": "typography"
+      },
+      "display-lg": {
+        "value": {
+          "fontFamily": "{global.font-family.sans}",
+          "fontWeight": "{global.font-weight.light}",
+          "fontSize":   "{global.font-size.display-lg}",
+          "lineHeight": "{global.line-height.tight}",
+          "letterSpacing": "{global.letter-spacing.snug}"
+        },
+        "type": "typography"
+      },
+      "display-md": {
+        "value": {
+          "fontFamily": "{global.font-family.sans}",
+          "fontWeight": "{global.font-weight.light}",
+          "fontSize":   "{global.font-size.display-md}",
+          "lineHeight": "1.20",
+          "letterSpacing": "{global.letter-spacing.normal}"
+        },
+        "type": "typography"
+      },
+      "headline": {
+        "value": {
+          "fontFamily": "{global.font-family.sans}",
+          "fontWeight": "{global.font-weight.regular}",
+          "fontSize":   "{global.font-size.headline}",
+          "lineHeight": "{global.line-height.snug}",
+          "letterSpacing": "{global.letter-spacing.normal}"
+        },
+        "type": "typography"
+      },
+      "card-title": {
+        "value": {
+          "fontFamily": "{global.font-family.sans}",
+          "fontWeight": "{global.font-weight.regular}",
+          "fontSize":   "{global.font-size.card-title}",
+          "lineHeight": "{global.line-height.normal}",
+          "letterSpacing": "{global.letter-spacing.normal}"
+        },
+        "type": "typography"
+      },
+      "subhead": {
+        "value": {
+          "fontFamily": "{global.font-family.sans}",
+          "fontWeight": "{global.font-weight.regular}",
+          "fontSize":   "{global.font-size.subhead}",
+          "lineHeight": "{global.line-height.relaxed}",
+          "letterSpacing": "{global.letter-spacing.normal}"
+        },
+        "type": "typography"
+      },
+      "body-lg": {
+        "value": {
+          "fontFamily": "{global.font-family.sans}",
+          "fontWeight": "{global.font-weight.regular}",
+          "fontSize":   "{global.font-size.body-lg}",
+          "lineHeight": "{global.line-height.loose}",
+          "letterSpacing": "{global.letter-spacing.normal}"
+        },
+        "type": "typography"
+      },
+      "body": {
+        "value": {
+          "fontFamily": "{global.font-family.sans}",
+          "fontWeight": "{global.font-weight.regular}",
+          "fontSize":   "{global.font-size.body}",
+          "lineHeight": "{global.line-height.loose}",
+          "letterSpacing": "{global.letter-spacing.carbon}"
+        },
+        "type": "typography"
+      },
+      "body-sm": {
+        "value": {
+          "fontFamily": "{global.font-family.sans}",
+          "fontWeight": "{global.font-weight.regular}",
+          "fontSize":   "{global.font-size.body-sm}",
+          "lineHeight": "{global.line-height.compact}",
+          "letterSpacing": "{global.letter-spacing.carbon}"
+        },
+        "type": "typography"
+      },
+      "body-emphasis": {
+        "value": {
+          "fontFamily": "{global.font-family.sans}",
+          "fontWeight": "{global.font-weight.semibold}",
+          "fontSize":   "{global.font-size.body-sm}",
+          "lineHeight": "{global.line-height.compact}",
+          "letterSpacing": "{global.letter-spacing.carbon}"
+        },
+        "type": "typography"
+      },
+      "caption": {
+        "value": {
+          "fontFamily": "{global.font-family.sans}",
+          "fontWeight": "{global.font-weight.regular}",
+          "fontSize":   "{global.font-size.caption}",
+          "lineHeight": "{global.line-height.normal}",
+          "letterSpacing": "{global.letter-spacing.caption}"
+        },
+        "type": "typography"
+      },
+      "button": {
+        "value": {
+          "fontFamily": "{global.font-family.sans}",
+          "fontWeight": "{global.font-weight.regular}",
+          "fontSize":   "{global.font-size.body-sm}",
+          "lineHeight": "{global.line-height.compact}",
+          "letterSpacing": "{global.letter-spacing.carbon}"
+        },
+        "type": "typography"
+      },
+      "eyebrow": {
+        "value": {
+          "fontFamily": "{global.font-family.sans}",
+          "fontWeight": "{global.font-weight.regular}",
+          "fontSize":   "{global.font-size.body-sm}",
+          "lineHeight": "{global.line-height.compact}",
+          "letterSpacing": "{global.letter-spacing.carbon}"
+        },
+        "type": "typography",
+        "description": "Section labels — sentence case, not all-caps"
+      }
+    },
+
+    "spacing": {
+      "xxs":     { "value": "4",  "type": "spacing", "description": "4px" },
+      "xs":      { "value": "8",  "type": "spacing", "description": "8px" },
+      "sm":      { "value": "12", "type": "spacing", "description": "12px" },
+      "md":      { "value": "16", "type": "spacing", "description": "16px" },
+      "lg":      { "value": "24", "type": "spacing", "description": "24px" },
+      "xl":      { "value": "32", "type": "spacing", "description": "32px" },
+      "xxl":     { "value": "48", "type": "spacing", "description": "48px" },
+      "section": { "value": "96", "type": "spacing", "description": "96px — top-level section padding" }
+    },
+
+    "border-radius": {
+      "none": { "value": "0",    "type": "borderRadius", "description": "Default — all CTAs, cards, inputs" },
+      "xs":   { "value": "2",    "type": "borderRadius" },
+      "sm":   { "value": "4",    "type": "borderRadius" },
+      "pill": { "value": "9999", "type": "borderRadius", "description": "For pill badges only" }
+    },
+
+    "border-width": {
+      "hairline": { "value": "1", "type": "borderWidth", "description": "Standard 1px card and input borders" }
+    },
+
+    "motion": {
+      "duration-fast":     { "value": "70ms",  "type": "other", "description": "Micro-interactions — hover, focus" },
+      "duration-moderate": { "value": "150ms", "type": "other", "description": "Reveals, panel opens" },
+      "ease-productive":   { "value": "cubic-bezier(0.2, 0, 0.38, 0.9)", "type": "other", "description": "IBM Carbon productive easing" }
+    },
+
+    "color": {
+      "brand": {
+        "blue-primary":   { "value": "#0f62fe", "type": "color", "description": "IBM Blue 60 — only chromatic accent in the system" },
+        "blue-hover":     { "value": "#0050e6", "type": "color", "description": "IBM Blue 60 hover state" },
+        "blue-pressed":   { "value": "#002d9c", "type": "color", "description": "IBM Blue 80 pressed state" },
+        "blue-dark":      { "value": "#4589ff", "type": "color", "description": "IBM Blue 50 — for dark mode" },
+        "blue-dark-hover":{ "value": "#6ea6ff", "type": "color", "description": "Blue 40 — dark mode hover" }
+      },
+      "semantic": {
+        "success-light":  { "value": "#24a148", "type": "color", "description": "IBM Green 50" },
+        "success-dark":   { "value": "#42be65", "type": "color", "description": "IBM Green 40" },
+        "warning":        { "value": "#f1c21b", "type": "color", "description": "IBM Yellow 30 — same both modes" },
+        "error-light":    { "value": "#da1e28", "type": "color", "description": "IBM Red 60" },
+        "error-dark":     { "value": "#fa4d56", "type": "color", "description": "IBM Red 50" }
+      },
+      "white":            { "value": "#ffffff", "type": "color" },
+      "black":            { "value": "#161616", "type": "color", "description": "IBM Gray 100" }
+    }
+  },
+
+  "light": {
+    "color": {
+      "primary":           { "value": "{global.color.brand.blue-primary}",  "type": "color" },
+      "primary-hover":     { "value": "{global.color.brand.blue-hover}",    "type": "color" },
+      "primary-pressed":   { "value": "{global.color.brand.blue-pressed}",  "type": "color" },
+      "on-primary":        { "value": "{global.color.white}",               "type": "color" },
+
+      "ink":               { "value": "#161616", "type": "color", "description": "IBM Gray 100 — primary text" },
+      "ink-muted":         { "value": "#525252", "type": "color", "description": "IBM Gray 70 — secondary text" },
+      "ink-subtle":        { "value": "#8c8c8c", "type": "color", "description": "IBM Gray 50 — placeholder, disabled" },
+
+      "canvas":            { "value": "#ffffff", "type": "color", "description": "Page background" },
+      "surface-1":         { "value": "#f4f4f4", "type": "color", "description": "IBM Gray 10 — alternate band, hover" },
+      "surface-2":         { "value": "#e0e0e0", "type": "color", "description": "IBM Gray 20 — input track, dividers" },
+
+      "inverse-canvas":    { "value": "#161616", "type": "color", "description": "Dark island (login aside, banners)" },
+      "inverse-surface-1": { "value": "#262626", "type": "color", "description": "IBM Gray 90" },
+      "inverse-ink":       { "value": "#ffffff", "type": "color" },
+      "inverse-ink-muted": { "value": "#c6c6c6", "type": "color", "description": "IBM Gray 30" },
+
+      "hairline":          { "value": "#e0e0e0", "type": "color", "description": "1px borders — cards, inputs, dividers" },
+      "hairline-strong":   { "value": "#161616", "type": "color", "description": "Underline on active inputs and CTAs" },
+
+      "success":           { "value": "{global.color.semantic.success-light}", "type": "color" },
+      "warning":           { "value": "{global.color.semantic.warning}",       "type": "color" },
+      "error":             { "value": "{global.color.semantic.error-light}",   "type": "color" },
+      "info":              { "value": "{global.color.brand.blue-primary}",     "type": "color" }
+    }
+  },
+
+  "dark": {
+    "color": {
+      "primary":           { "value": "{global.color.brand.blue-dark}",      "type": "color" },
+      "primary-hover":     { "value": "{global.color.brand.blue-dark-hover}","type": "color" },
+      "primary-pressed":   { "value": "#0043ce",                             "type": "color" },
+      "on-primary":        { "value": "{global.color.white}",                "type": "color" },
+
+      "ink":               { "value": "#f4f4f4", "type": "color", "description": "IBM Gray 10 — primary text on dark" },
+      "ink-muted":         { "value": "#c6c6c6", "type": "color", "description": "IBM Gray 30" },
+      "ink-subtle":        { "value": "#8d8d8d", "type": "color", "description": "IBM Gray 50" },
+
+      "canvas":            { "value": "#161616", "type": "color", "description": "IBM Gray 100" },
+      "surface-1":         { "value": "#262626", "type": "color", "description": "IBM Gray 90" },
+      "surface-2":         { "value": "#393939", "type": "color", "description": "IBM Gray 80" },
+
+      "inverse-canvas":    { "value": "#ffffff", "type": "color" },
+      "inverse-surface-1": { "value": "#f4f4f4", "type": "color" },
+      "inverse-ink":       { "value": "#161616", "type": "color" },
+      "inverse-ink-muted": { "value": "#525252", "type": "color" },
+
+      "hairline":          { "value": "#393939", "type": "color" },
+      "hairline-strong":   { "value": "#f4f4f4", "type": "color" },
+
+      "success":           { "value": "{global.color.semantic.success-dark}", "type": "color" },
+      "warning":           { "value": "{global.color.semantic.warning}",      "type": "color" },
+      "error":             { "value": "{global.color.semantic.error-dark}",   "type": "color" },
+      "info":              { "value": "{global.color.brand.blue-dark}",       "type": "color" }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(npx msw *)",
+      "Bash(npm run *)",
+      "Bash(curl -s http://localhost:5173/ -o /dev/null -w \"HTTP %{http_code}\\\\n\")",
+      "Bash(curl -s http://localhost:5173/mockServiceWorker.js -o /dev/null -w \"SW %{http_code}\\\\n\")",
+      "Bash(pkill -f \"vite\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173/)",
+      "Bash(npx playwright *)",
+      "Bash(npm list *)",
+      "Bash(npx --yes playwright list-devices)",
+      "Read(//Users/leapfrog/.npm/_npx/**)",
+      "Bash(node *)"
+    ]
+  }
+}

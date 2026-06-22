@@ -1,0 +1,67 @@
+/* IBM Carbon — VisaVista tokens. Mirror of DESIGN.md. */
+:root {
+  --color-primary: #0f62fe;
+  --color-primary-hover: #0050e6;
+  --color-primary-pressed: #002d9c;
+  --color-on-primary: #ffffff;
+
+  --color-ink: #161616;
+  --color-ink-muted: #525252;
+  --color-ink-subtle: #8c8c8c;
+
+  --color-canvas: #ffffff;
+  --color-surface-1: #f4f4f4;
+  --color-surface-2: #e0e0e0;
+
+  --color-inverse-canvas: #161616;
+  --color-inverse-surface-1: #262626;
+  --color-inverse-ink: #ffffff;
+  --color-inverse-ink-muted: #c6c6c6;
+
+  --color-hairline: #e0e0e0;
+  --color-hairline-strong: #161616;
+
+  --color-success: #24a148;
+  --color-warning: #f1c21b;
+  --color-error: #da1e28;
+  --color-info: #0f62fe;
+
+  --duration-fast: 70ms;
+  --duration-moderate: 150ms;
+  --ease-productive: cubic-bezier(0.2, 0, 0.38, 0.9);
+}
+
+/* Carbon Gray 100 — dark theme. The "inverse" tokens flip to light so any
+   inverse-on-canvas treatment (login aside, future footer) reads as a light
+   island on a dark page, mirroring Carbon's two-theme contract. */
+:root[data-theme='dark'] {
+  --color-primary: #4589ff;          /* Blue 50 — brightened one step for dark */
+  --color-primary-hover: #6ea6ff;
+  --color-primary-pressed: #0043ce;
+  --color-on-primary: #ffffff;
+
+  --color-ink: #f4f4f4;
+  --color-ink-muted: #c6c6c6;
+  --color-ink-subtle: #8d8d8d;
+
+  --color-canvas: #161616;
+  --color-surface-1: #262626;
+  --color-surface-2: #393939;
+
+  --color-inverse-canvas: #ffffff;
+  --color-inverse-surface-1: #f4f4f4;
+  --color-inverse-ink: #161616;
+  --color-inverse-ink-muted: #525252;
+
+  --color-hairline: #393939;
+  --color-hairline-strong: #f4f4f4;
+
+  --color-success: #42be65;
+  --color-warning: #f1c21b;
+  --color-error: #fa4d56;
+  --color-info: #4589ff;
+}
+
+:root[data-theme='dark'] body {
+  color-scheme: dark;
+}
