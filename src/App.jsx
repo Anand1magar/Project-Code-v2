@@ -5,6 +5,7 @@ import AppLayout from './layouts/AppLayout.jsx';
 import Spinner from './components/ui/Spinner.jsx';
 
 const LoginPage         = lazy(() => import('./routes/LoginPage.jsx'));
+const FlowPage          = lazy(() => import('./routes/FlowPage.jsx'));
 const DashboardPage     = lazy(() => import('./routes/DashboardPage.jsx'));
 const StudentsPage      = lazy(() => import('./routes/StudentsPage.jsx'));
 const StudentDetailPage = lazy(() => import('./routes/StudentDetailPage.jsx'));
@@ -43,6 +44,7 @@ export default function App() {
       <Suspense fallback={<FullScreenSpinner />}>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/flow" element={<FlowPage />} />
           <Route
             path="/"
             element={
