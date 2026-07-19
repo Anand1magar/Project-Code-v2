@@ -8,6 +8,15 @@
 // screen — the last screen in a flow has none. A screen may also carry a
 // `branch`: a short text-only note describing an alternate path the flow
 // can take from that point, without a separate live screen for it.
+//
+// `path` is the real app route the screen represents — it's the source of
+// truth `scripts/capture-flow-screens.mjs` navigates to when (re)generating
+// `image`, a static PNG under public/flow-screens/ that FlowScreenTile
+// actually renders. Screens are pre-rendered images (not live iframes) so
+// this page can be captured into design tools (e.g. Figma's HTML-capture
+// plugins), which can't reach inside an iframe's own document. Run
+// `npm run flow:capture` after any UI or seed-data change that would alter
+// what these screens look like.
 export const FLOWS = [
   {
     id: 'add-student',
@@ -20,15 +29,16 @@ export const FLOWS = [
       'Auto-creates a case so nothing sits unassigned',
     ],
     screens: [
-      { label: 'Students list', path: '/students', caption: 'Clicks "Add student"' },
+      { label: 'Students list', path: '/students', image: '/flow-screens/students-list.png', caption: 'Clicks "Add student"' },
       {
         label: 'Add student form',
         path: '/students?open=new',
+        image: '/flow-screens/students-add-form.png',
         caption: 'Fills form → "Add student"',
         branch: 'If the phone or email matches an existing student, this is blocked instead — a "Student already exists" modal offers to open that record or create a new one anyway.',
       },
-      { label: 'Case Detail (auto-created)', path: '/cases/c1', caption: 'Scrolls to Documents' },
-      { label: 'Case Detail — Documents', path: '/cases/c1?tab=documents' },
+      { label: 'Case Detail (auto-created)', path: '/cases/c1', image: '/flow-screens/case-c1-activity.png', caption: 'Scrolls to Documents' },
+      { label: 'Case Detail — Documents', path: '/cases/c1?tab=documents', image: '/flow-screens/case-c1-documents.png' },
     ],
   },
   {
@@ -42,10 +52,10 @@ export const FLOWS = [
       'Move a case forward with a click — no spreadsheet to update',
     ],
     screens: [
-      { label: 'Pipeline (Kanban)', path: '/pipeline', caption: 'Opens an early-stage case' },
-      { label: 'Case Detail — Inquiry stage', path: '/cases/c1', caption: "Compare a case further along" },
-      { label: 'Case Detail — Financials stage', path: '/cases/c6', caption: "Compare a case that's finished" },
-      { label: 'Case Detail — Enrolled', path: '/cases/c10' },
+      { label: 'Pipeline (Kanban)', path: '/pipeline', image: '/flow-screens/pipeline-kanban.png', caption: 'Opens an early-stage case' },
+      { label: 'Case Detail — Inquiry stage', path: '/cases/c1', image: '/flow-screens/case-c1-activity.png', caption: "Compare a case further along" },
+      { label: 'Case Detail — Financials stage', path: '/cases/c6', image: '/flow-screens/case-c6-financials.png', caption: "Compare a case that's finished" },
+      { label: 'Case Detail — Enrolled', path: '/cases/c10', image: '/flow-screens/case-c10-enrolled.png' },
     ],
   },
   {
@@ -59,9 +69,9 @@ export const FLOWS = [
       'Verifying a document can automatically close out a follow-up task',
     ],
     screens: [
-      { label: 'Case Detail — Activity', path: '/cases/c1', caption: 'Clicks the Documents tab' },
-      { label: 'Documents — just started', path: '/cases/c1?tab=documents', caption: "Compare a case that's nearly done" },
-      { label: 'Documents — mostly verified', path: '/cases/c10?tab=documents' },
+      { label: 'Case Detail — Activity', path: '/cases/c1', image: '/flow-screens/case-c1-activity.png', caption: 'Clicks the Documents tab' },
+      { label: 'Documents — just started', path: '/cases/c1?tab=documents', image: '/flow-screens/case-c1-documents.png', caption: "Compare a case that's nearly done" },
+      { label: 'Documents — mostly verified', path: '/cases/c10?tab=documents', image: '/flow-screens/case-c10-documents.png' },
     ],
   },
   {
@@ -75,8 +85,8 @@ export const FLOWS = [
       'Marking a task done keeps the whole team\'s picture up to date',
     ],
     screens: [
-      { label: 'Tasks page', path: '/tasks', caption: "Opens an overdue case's Tasks tab" },
-      { label: 'Case Detail — Tasks', path: '/cases/c4?tab=tasks' },
+      { label: 'Tasks page', path: '/tasks', image: '/flow-screens/tasks-page.png', caption: "Opens an overdue case's Tasks tab" },
+      { label: 'Case Detail — Tasks', path: '/cases/c4?tab=tasks', image: '/flow-screens/case-c4-tasks.png' },
     ],
   },
   {
@@ -90,9 +100,9 @@ export const FLOWS = [
       'No spreadsheet exports, no waiting on someone else\'s report',
     ],
     screens: [
-      { label: 'Dashboard', path: '/', caption: 'Drills into the Pipeline' },
-      { label: 'Pipeline', path: '/pipeline', caption: 'Or into Settings for team management' },
-      { label: 'Settings', path: '/settings' },
+      { label: 'Dashboard', path: '/', image: '/flow-screens/dashboard.png', caption: 'Drills into the Pipeline' },
+      { label: 'Pipeline', path: '/pipeline', image: '/flow-screens/pipeline-kanban.png', caption: 'Or into Settings for team management' },
+      { label: 'Settings', path: '/settings', image: '/flow-screens/settings.png' },
     ],
   },
   {
@@ -106,9 +116,9 @@ export const FLOWS = [
       'Answers can link straight back to the case or screen they came from',
     ],
     screens: [
-      { label: 'Dashboard', path: '/', caption: 'Clicks Ask (or presses ⌘K) and asks a question' },
-      { label: 'Ask panel — instant answer', path: '/?ask=How%20many%20active%20cases%20do%20we%20have%20right%20now%3F', caption: 'Works from any screen, not just Dashboard' },
-      { label: 'Ask panel — from Pipeline', path: '/pipeline?ask=Which%20cases%20have%20missing%20documents%3F' },
+      { label: 'Dashboard', path: '/', image: '/flow-screens/dashboard.png', caption: 'Clicks Ask (or presses ⌘K) and asks a question' },
+      { label: 'Ask panel — instant answer', path: '/?ask=How%20many%20active%20cases%20do%20we%20have%20right%20now%3F', image: '/flow-screens/dashboard-ask-answer.png', caption: 'Works from any screen, not just Dashboard' },
+      { label: 'Ask panel — from Pipeline', path: '/pipeline?ask=Which%20cases%20have%20missing%20documents%3F', image: '/flow-screens/pipeline-ask-answer.png' },
     ],
   },
 ];

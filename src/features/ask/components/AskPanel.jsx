@@ -34,6 +34,7 @@ export default function AskPanel() {
   const [loading, setLoading] = useState(false);
   const chatRef = useRef(null);
   const inputRef = useRef(null);
+  const askedRef = useRef(false);
 
   const starters = isAdmin ? ADMIN_STARTERS : COUNSELLOR_STARTERS;
   const firstName = currentUser?.name?.split(' ')[0] ?? 'there';
@@ -95,10 +96,14 @@ export default function AskPanel() {
   );
 
   // Lets /flow (and any other caller) deep-link straight to an open,
-  // answered panel via ?ask=<question> — no effect when absent.
+  // answered panel via ?ask=<question> — no effect when absent. Guarded by
+  // a ref (not just the empty dep array) because React.StrictMode
+  // double-invokes mount effects in dev, which would otherwise ask the
+  // same question twice.
   useEffect(() => {
     const query = searchParams.get('ask');
-    if (query) {
+    if (query && !askedRef.current) {
+      askedRef.current = true;
       open();
       send(query);
     }

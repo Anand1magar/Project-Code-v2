@@ -1,28 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import PageHeader from '../components/ui/PageHeader.jsx';
-import Spinner from '../components/ui/Spinner.jsx';
 import { authService } from '../features/auth/authService.js';
 import { FLOWS } from '../features/flow/flowsConfig.js';
 import FlowSection from '../features/flow/components/FlowSection.jsx';
 
 export default function FlowPage() {
-  const [ready, setReady] = useState(false);
-
+  // Screens are pre-rendered static images (see flowsConfig.js), so this
+  // page needs no session to display anything. We still establish one on
+  // mount, fire-and-forget: scripts/capture-flow-screens.mjs loads this
+  // page first to get a valid session before navigating to the real,
+  // auth-gated routes it screenshots, reusing this instead of its own
+  // separate login mechanism.
   useEffect(() => {
-    let alive = true;
-    authService.me()
-      .catch(() => authService.login({ role: 'admin' }))
-      .finally(() => { if (alive) setReady(true); });
-    return () => { alive = false; };
+    authService.me().catch(() => authService.login({ role: 'admin' }));
   }, []);
-
-  if (!ready) {
-    return (
-      <div className="flex h-screen items-center justify-center bg-canvas">
-        <Spinner />
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-canvas">

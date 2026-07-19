@@ -25,7 +25,7 @@ export default function FlowSection({ index, flow }) {
         {flow.screens.map((screen) => (
           <div key={screen.path} className="flex items-start gap-md shrink-0">
             <div className="flex flex-col gap-xs">
-              <FlowScreenTile label={screen.label} path={screen.path} />
+              <FlowScreenTile label={screen.label} image={screen.image} />
               {screen.branch && (
                 <div className="w-[320px] border border-dashed border-hairline-strong bg-canvas px-xs py-xs text-caption text-ink-subtle">
                   {screen.branch}
