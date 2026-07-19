@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { X, Send, MessageSquare } from 'lucide-react';
 import { useAskContext } from '../AskContext.jsx';
 import { useAuth } from '../../auth/AuthContext.jsx';
@@ -24,9 +24,10 @@ let _msgId = 0;
 const nextId = () => `msg_${++_msgId}`;
 
 export default function AskPanel() {
-  const { isOpen, close } = useAskContext();
+  const { isOpen, open, close } = useAskContext();
   const { currentUser, isAdmin } = useAuth();
   const nav = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
@@ -92,6 +93,17 @@ export default function AskPanel() {
     },
     [loading, currentUser],
   );
+
+  // Lets /flow (and any other caller) deep-link straight to an open,
+  // answered panel via ?ask=<question> — no effect when absent.
+  useEffect(() => {
+    const query = searchParams.get('ask');
+    if (query) {
+      open();
+      send(query);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function handleSubmit(e) {
     e.preventDefault();

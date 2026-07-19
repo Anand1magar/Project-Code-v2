@@ -1,42 +1,114 @@
-// Real seeded demo data used throughout: student "Roshan Thapa" / case "c1"
-// (see src/mocks/seed.js). Each screen's `caption` describes the action
-// that leads to the *next* screen — the last screen in a flow has none.
+// Real seeded demo data used throughout (see src/mocks/seed.js):
+// - Case c1  (Roshan Thapa,  Australia) — inquiry stage, just started
+// - Case c4  (Anita Gurung,  Canada)    — application stage, has an overdue task
+// - Case c6  (Kamala Rai,    New Zealand) — financials stage, has a blocker
+// - Case c10 (Meera Poudel,  Australia) — enrolled, visa granted, docs mostly verified
+//
+// Each screen's `caption` describes the action that leads to the *next*
+// screen — the last screen in a flow has none. A screen may also carry a
+// `branch`: a short text-only note describing an alternate path the flow
+// can take from that point, without a separate live screen for it.
 export const FLOWS = [
-  {
-    id: 'login',
-    title: 'Login',
-    description: 'Signing in and landing on the dashboard.',
-    screens: [
-      { label: 'Sign in', path: '/login', caption: 'Selects a profile → Continue' },
-      { label: 'Dashboard', path: '/' },
-    ],
-  },
   {
     id: 'add-student',
     title: 'Add a Student',
     description: 'From an empty list to a live case record.',
+    problem: 'Leads currently live in someone\'s WhatsApp or a notebook — easy to lose, impossible to search, no record of who owns what.',
+    solves: [
+      'Captures a new lead in under 2 minutes, with where they came from',
+      'Catches duplicate students automatically by phone or email',
+      'Auto-creates a case so nothing sits unassigned',
+    ],
     screens: [
       { label: 'Students list', path: '/students', caption: 'Clicks "Add student"' },
-      { label: 'Add student form', path: '/students?open=new', caption: 'Fills form → "Add student"' },
-      { label: 'Case Detail (auto-created)', path: '/cases/c1' },
+      {
+        label: 'Add student form',
+        path: '/students?open=new',
+        caption: 'Fills form → "Add student"',
+        branch: 'If the phone or email matches an existing student, this is blocked instead — a "Student already exists" modal offers to open that record or create a new one anyway.',
+      },
+      { label: 'Case Detail (auto-created)', path: '/cases/c1', caption: 'Scrolls to Documents' },
+      { label: 'Case Detail — Documents', path: '/cases/c1?tab=documents' },
     ],
   },
   {
     id: 'case-pipeline',
     title: 'Case Pipeline',
-    description: 'Scanning the pipeline and opening a case.',
+    description: 'Scanning the pipeline and comparing cases at different stages.',
+    problem: 'No single view of where every student actually is — counsellors track it in their heads, admins have no visibility.',
+    solves: [
+      'One kanban board for the whole pipeline, from inquiry to enrolled',
+      'Every case shows its next action, deadline, and owner at a glance',
+      'Move a case forward with a click — no spreadsheet to update',
+    ],
     screens: [
-      { label: 'Pipeline (Kanban)', path: '/pipeline', caption: 'Clicks a case card' },
-      { label: 'Case Detail', path: '/cases/c1' },
+      { label: 'Pipeline (Kanban)', path: '/pipeline', caption: 'Opens an early-stage case' },
+      { label: 'Case Detail — Inquiry stage', path: '/cases/c1', caption: "Compare a case further along" },
+      { label: 'Case Detail — Financials stage', path: '/cases/c6', caption: "Compare a case that's finished" },
+      { label: 'Case Detail — Enrolled', path: '/cases/c10' },
     ],
   },
   {
     id: 'document-checklist',
     title: 'Document Checklist',
-    description: 'Checking what documents are still needed.',
+    description: 'Checking what documents are still needed, and comparing an early case to a finished one.',
+    problem: 'Missing paperwork is the #1 cause of delayed applications — and nobody notices until it\'s urgent.',
+    solves: [
+      'A fixed checklist per case (passport, IELTS, SOP, financials, and more)',
+      'Shows exactly what\'s pending, received, or verified at a glance',
+      'Verifying a document can automatically close out a follow-up task',
+    ],
     screens: [
       { label: 'Case Detail — Activity', path: '/cases/c1', caption: 'Clicks the Documents tab' },
-      { label: 'Case Detail — Documents', path: '/cases/c1?tab=documents' },
+      { label: 'Documents — just started', path: '/cases/c1?tab=documents', caption: "Compare a case that's nearly done" },
+      { label: 'Documents — mostly verified', path: '/cases/c10?tab=documents' },
+    ],
+  },
+  {
+    id: 'task-tracking',
+    title: 'Task & Deadline Tracking',
+    description: 'Seeing what\'s due, and opening the case behind it.',
+    problem: 'Follow-ups get forgotten when they\'re not written down somewhere the whole team can see.',
+    solves: [
+      'One list of everything due today, overdue, or upcoming',
+      'Tasks are tied to a real case and a real deadline, not a sticky note',
+      'Marking a task done keeps the whole team\'s picture up to date',
+    ],
+    screens: [
+      { label: 'Tasks page', path: '/tasks', caption: "Opens an overdue case's Tasks tab" },
+      { label: 'Case Detail — Tasks', path: '/cases/c4?tab=tasks' },
+    ],
+  },
+  {
+    id: 'admin-dashboard',
+    title: 'Admin Dashboard & Analytics',
+    description: 'The admin\'s home screen, and where it drills into next.',
+    problem: 'The admin has to ask around to know how the business is actually doing this week.',
+    solves: [
+      'Live pipeline snapshot, conversion rate, and at-risk cases in one screen',
+      'Drills straight into Pipeline or Settings from the same view',
+      'No spreadsheet exports, no waiting on someone else\'s report',
+    ],
+    screens: [
+      { label: 'Dashboard', path: '/', caption: 'Drills into the Pipeline' },
+      { label: 'Pipeline', path: '/pipeline', caption: 'Or into Settings for team management' },
+      { label: 'Settings', path: '/settings' },
+    ],
+  },
+  {
+    id: 'ask-visa-vista',
+    title: 'Ask Visa Vista (AI Chat)',
+    description: 'Asking a plain-language question from anywhere in the app.',
+    problem: 'Getting a simple answer — "how many Australia cases this month?" — means opening three screens and counting by hand.',
+    solves: [
+      'Ask in plain English, get a real answer pulled from actual case data',
+      'Works from anywhere in the app via the floating button or ⌘K',
+      'Answers can link straight back to the case or screen they came from',
+    ],
+    screens: [
+      { label: 'Dashboard', path: '/', caption: 'Clicks Ask (or presses ⌘K) and asks a question' },
+      { label: 'Ask panel — instant answer', path: '/?ask=How%20many%20active%20cases%20do%20we%20have%20right%20now%3F', caption: 'Works from any screen, not just Dashboard' },
+      { label: 'Ask panel — from Pipeline', path: '/pipeline?ask=Which%20cases%20have%20missing%20documents%3F' },
     ],
   },
 ];
