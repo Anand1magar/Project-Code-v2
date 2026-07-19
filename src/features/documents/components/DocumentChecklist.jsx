@@ -13,7 +13,6 @@ import FilePreviewModal from './FilePreviewModal.jsx';
 // ─── Status catalogue ────────────────────────────────────────────────────────
 
 const STATUSES = [
-  { id: 'required', label: 'Required', tone: 'muted'    },
   { id: 'pending',  label: 'Pending',  tone: 'warning'  },
   { id: 'received', label: 'Received', tone: 'info'     },
   { id: 'verified', label: 'Verified', tone: 'success'  },
@@ -23,7 +22,6 @@ const STATUS_MAP = Object.fromEntries(STATUSES.map((s) => [s.id, s]));
 
 // Dot colour per status (left edge indicator)
 const DOT_CLASS = {
-  required: 'bg-surface-2',
   pending:  'bg-warning',
   received: 'bg-primary',
   verified: 'bg-success',
@@ -164,7 +162,7 @@ export default function DocumentChecklist({
   // Docs that still need action
   const missing = checklist.filter((item) => {
     const d = byType[item.id];
-    return !d || ['required', 'pending', 'rejected'].includes(d.status);
+    return !d || ['pending', 'rejected'].includes(d.status);
   });
 
   // ── expand / collapse ────────────────────────────────────────────────────

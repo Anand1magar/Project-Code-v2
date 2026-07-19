@@ -50,7 +50,7 @@ export default function CaseDetailPage() {
   const { student } = useStudent(c?.studentId);
   const { users } = useUsers();
   const { docs, setStatus: setDocStatus, upload: uploadDoc } = useDocuments(id);
-  const { tasks, create: createTask, toggle: toggleTask } = useTasks({ caseId: id });
+  const { tasks, create: createTask, toggle: toggleTask, refresh: refreshTasks } = useTasks({ caseId: id });
   const { entries: activity, create: createActivity } = useActivity(id);
   const { offers, create: createOffer, updateStatus: updateOfferStatus } = useOffers(id);
   const { fees, create: createFee, voidFee } = useFees(id);
@@ -87,12 +87,24 @@ export default function CaseDetailPage() {
   async function handleLodge(data) {
     await createLodgement(data);
     await refreshCase();
+    await refreshTasks();
   }
 
   async function handleDecision(data) {
     await lodgementsService.recordDecision(id, data);
     await refreshCase();
     await refreshLodgement();
+    await refreshTasks();
+  }
+
+  async function handleCreateOffer(data) {
+    await createOffer(data);
+    await refreshCase();
+  }
+
+  async function handleCreateActivity(data) {
+    await createActivity(data);
+    await refreshCase();
   }
 
   return (
@@ -158,7 +170,7 @@ export default function CaseDetailPage() {
           <div className="mt-lg">
             {tab === 'activity' && (
               <div className="space-y-md">
-                <ActivityForm authorId={currentUser?.id} onCreate={createActivity} />
+                <ActivityForm authorId={currentUser?.id} onCreate={handleCreateActivity} />
                 <ActivityTimeline entries={activity} usersById={usersById} />
               </div>
             )}
@@ -172,7 +184,7 @@ export default function CaseDetailPage() {
                 onUpload={(docId, file) => uploadDoc(docId, file, currentUser?.id)}
                 onStatusChange={(docId, status, reason) => setDocStatus(docId, status, reason)}
                 onReminder={async (missing) => {
-                  await createActivity({
+                  await handleCreateActivity({
                     type: 'note',
                     text: `Document reminder sent — still needed: ${missing.map((m) => m.label).join(', ')}.`,
                     authorId: currentUser?.id,
@@ -191,7 +203,7 @@ export default function CaseDetailPage() {
             {tab === 'offer' && (
               <OfferLogForm
                 offers={offers}
-                onCreate={createOffer}
+                onCreate={handleCreateOffer}
                 onUpdateStatus={updateOfferStatus}
               />
             )}

@@ -9,6 +9,7 @@ export default function LoginPage() {
   const { currentUser, login } = useAuth();
   const nav = useNavigate();
   const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
 
   if (currentUser) return <Navigate to="/" replace />;
 
@@ -19,8 +20,16 @@ export default function LoginPage() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await login({ role: 'admin' });
-    nav('/', { replace: true });
+    if (!email.trim()) {
+      setError('Enter a seeded email, or use a demo profile below.');
+      return;
+    }
+    try {
+      await login({ email: email.trim() });
+      nav('/', { replace: true });
+    } catch {
+      setError("No user found with that email — try a demo profile below.");
+    }
   }
 
   return (
@@ -55,8 +64,9 @@ export default function LoginPage() {
               name="email"
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => { setEmail(e.target.value); setError(''); }}
               placeholder="asha@visavista.test"
+              error={error}
             />
             <Button type="submit" className="w-full">
               Continue

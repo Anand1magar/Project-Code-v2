@@ -9,7 +9,7 @@ export default function TaskForm({ caseId, assigneeId, onCreated, onCreate }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (!title.trim()) return;
+    if (!title.trim() || !dueDate) return;
     setBusy(true);
     try {
       const iso = dueDate ? new Date(dueDate).toISOString() : '';
@@ -30,7 +30,7 @@ export default function TaskForm({ caseId, assigneeId, onCreated, onCreate }) {
       <div className="md:w-48">
         <Input type="date" label="Due" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
       </div>
-      <Button type="submit" disabled={busy || !title.trim()}>Add task</Button>
+      <Button type="submit" disabled={busy || !title.trim() || !dueDate}>Add task</Button>
     </form>
   );
 }
