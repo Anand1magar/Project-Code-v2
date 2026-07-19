@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import PageHeader from '../components/ui/PageHeader.jsx';
 import Card from '../components/ui/Card.jsx';
@@ -44,6 +44,7 @@ const VISA_STATUSES = ['Lodged', 'Under Review', 'Decision Pending', 'Decided'];
 
 export default function CaseDetailPage() {
   const { id } = useParams();
+  const [searchParams] = useSearchParams();
   const { currentUser } = useAuth();
   const { case: c, loading, update, refresh: refreshCase } = useCase(id);
   const { config } = usePipeline();
@@ -56,7 +57,12 @@ export default function CaseDetailPage() {
   const { fees, create: createFee, voidFee } = useFees(id);
   const { lodgement, create: createLodgement, refresh: refreshLodgement } = useLodgement(id);
 
-  const [tab, setTab] = useState('activity');
+  // Lets /flow (and any other caller) deep-link straight to a tab via
+  // ?tab=documents — falls back to 'activity' when absent or invalid.
+  const requestedTab = searchParams.get('tab');
+  const [tab, setTab] = useState(
+    TABS.some((t) => t.id === requestedTab) ? requestedTab : 'activity',
+  );
   const [toast, setToast] = useState('');
 
   async function handleMetaSave(form) {
