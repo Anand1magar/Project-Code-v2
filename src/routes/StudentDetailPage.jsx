@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, Pencil } from 'lucide-react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { ArrowLeft, Pencil, Trash2 } from 'lucide-react';
 import PageHeader from '../components/ui/PageHeader.jsx';
 import Card from '../components/ui/Card.jsx';
 import Modal from '../components/ui/Modal.jsx';
@@ -15,10 +15,13 @@ import { formatDate } from '../lib/date.js';
 
 export default function StudentDetailPage() {
   const { id } = useParams();
-  const { student, loading, update } = useStudent(id);
+  const nav = useNavigate();
+  const { student, loading, update, remove } = useStudent(id);
   const { cases } = useCases({ studentId: id });
   const { config } = usePipeline();
   const [editOpen, setEditOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   const stageLabel = useMemo(() => {
     const map = Object.fromEntries((config?.stages ?? []).map((s) => [s.id, s.label]));
@@ -32,6 +35,16 @@ export default function StudentDetailPage() {
     setEditOpen(false);
   }
 
+  async function handleDelete() {
+    setDeleting(true);
+    try {
+      await remove();
+      nav('/students', { replace: true });
+    } finally {
+      setDeleting(false);
+    }
+  }
+
   return (
     <div>
       <PageHeader
@@ -43,9 +56,14 @@ export default function StudentDetailPage() {
         title={student.name}
         description={`${student.targetCountry} · ${student.leadSource?.replace(/-/g, ' ')}`}
         actions={
-          <Button variant="tertiary" onClick={() => setEditOpen(true)}>
-            <Pencil size={14} strokeWidth={1.5} /> Edit
-          </Button>
+          <div className="flex items-center gap-sm">
+            <Button variant="tertiary" onClick={() => setEditOpen(true)}>
+              <Pencil size={14} strokeWidth={1.5} /> Edit
+            </Button>
+            <Button variant="danger" onClick={() => setDeleteOpen(true)}>
+              <Trash2 size={14} strokeWidth={1.5} /> Delete
+            </Button>
+          </div>
         }
       />
 
@@ -87,6 +105,28 @@ export default function StudentDetailPage() {
 
       <Modal open={editOpen} onClose={() => setEditOpen(false)} title="Edit student">
         <StudentForm initial={student} onCancel={() => setEditOpen(false)} onSubmit={handleSave} submitLabel="Save changes" />
+      </Modal>
+
+      <Modal
+        open={deleteOpen}
+        onClose={() => setDeleteOpen(false)}
+        title="Delete student"
+        footer={
+          <>
+            <Button variant="ghost" onClick={() => setDeleteOpen(false)} disabled={deleting}>
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={handleDelete} disabled={deleting}>
+              {deleting ? 'Deleting…' : 'Delete'}
+            </Button>
+          </>
+        }
+      >
+        <p className="text-body-sm text-ink">
+          Delete <strong>{student.name}</strong>
+          {cases.length > 0 && ` and ${cases.length} case${cases.length !== 1 ? 's' : ''}`}?
+          This can't be undone — all linked documents, tasks, notes, fees, offers, and lodgements go with it.
+        </p>
       </Modal>
     </div>
   );

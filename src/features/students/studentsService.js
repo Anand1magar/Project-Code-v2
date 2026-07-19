@@ -5,6 +5,7 @@ export const studentsService = {
   get: (id) => apiClient.get(`/students/${id}`),
   create: (data) => apiClient.post('/students', data),
   update: (id, patch) => apiClient.patch(`/students/${id}`, patch),
+  remove: (id) => apiClient.del(`/students/${id}`),
   checkDuplicate: (phone, email) => {
     const qs = new URLSearchParams();
     if (phone) qs.set('phone', phone);

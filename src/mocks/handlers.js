@@ -66,6 +66,20 @@ export const handlers = [
     const s = db.students.update(params.id, patch);
     return s ? ok(s) : notFound();
   }),
+  http.delete('/api/students/:id', ({ params }) => {
+    // Cascade: a student's cases, and everything tied to those cases, go with them.
+    db.cases.where((c) => c.studentId === params.id).forEach((c) => {
+      db.documents.where((d) => d.caseId === c.id).forEach((d) => db.documents.remove(d.id));
+      db.tasks.where((t) => t.caseId === c.id).forEach((t) => db.tasks.remove(t.id));
+      db.activity.where((a) => a.caseId === c.id).forEach((a) => db.activity.remove(a.id));
+      db.offers.where((o) => o.caseId === c.id).forEach((o) => db.offers.remove(o.id));
+      db.fees.where((f) => f.caseId === c.id).forEach((f) => db.fees.remove(f.id));
+      db.lodgements.where((l) => l.caseId === c.id).forEach((l) => db.lodgements.remove(l.id));
+      db.cases.remove(c.id);
+    });
+    const removed = db.students.remove(params.id);
+    return removed ? new HttpResponse(null, { status: 204 }) : notFound();
+  }),
 
   // --- cases ----------------------------------------------------------
   http.get('/api/cases', ({ request }) => {

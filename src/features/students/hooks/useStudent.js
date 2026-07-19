@@ -26,5 +26,9 @@ export function useStudent(id) {
     return updated;
   }, [id]);
 
-  return { student, loading, error, refresh, update };
+  const remove = useCallback(async () => {
+    await studentsService.remove(id);
+  }, [id]);
+
+  return { student, loading, error, refresh, update, remove };
 }
