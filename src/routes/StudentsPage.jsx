@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Plus, Search } from 'lucide-react';
 import PageHeader from '../components/ui/PageHeader.jsx';
 import Button from '../components/ui/Button.jsx';
@@ -15,6 +15,7 @@ import StudentForm from '../features/students/components/StudentForm.jsx';
 
 export default function StudentsPage() {
   const nav = useNavigate();
+  const [searchParams] = useSearchParams();
   const { currentUser } = useAuth();
   const { students, loading, query, setQuery, create } = useStudents();
   const [modalOpen, setModalOpen] = useState(false);
@@ -22,6 +23,13 @@ export default function StudentsPage() {
   const [duplicate, setDuplicate] = useState(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+
+  // Lets /flow (and any other caller) deep-link straight to the "Add
+  // student" modal via ?open=new — no effect on normal navigation.
+  useEffect(() => {
+    if (searchParams.get('open') === 'new') openModal();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function openModal() {
     setModalOpen(true);
