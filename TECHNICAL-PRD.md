@@ -37,7 +37,7 @@ A web CRM for education/visa consultancies in Nepal that replaces spreadsheets, 
 | Resource | Endpoints |
 |---|---|
 | auth | `POST /api/auth/login`, `GET /api/auth/me`, `POST /api/auth/logout` |
-| students | `GET/POST /api/students`, `GET/PATCH /api/students/:id`, `GET /api/students?q=`, `GET /api/students/duplicate?phone=&email=` |
+| students | `GET/POST /api/students`, `GET/PATCH/DELETE /api/students/:id`, `GET /api/students?q=`, `GET /api/students/duplicate?phone=&email=` |
 | cases | `GET/POST /api/cases`, `GET/PATCH /api/cases/:id`, `GET /api/cases?studentId=&counsellorId=&stage=&visaOutcome=`, `PATCH /api/cases/:id/stage`, `PATCH /api/cases/:id/visa-status`, `PATCH /api/cases/:id/decision` |
 | activity | `GET /api/cases/:caseId/activity`, `POST /api/activity` |
 | tasks | `GET /api/tasks?assigneeId=&caseId=&due=today\|overdue`, `POST /api/tasks`, `PATCH /api/tasks/:id` |
